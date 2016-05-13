@@ -1,15 +1,5 @@
 from sympy import solveset,sympify,symbols,Eq
-
-eqsConstantA = [["x2 = x0 + v1 * t1 + 0.5 * a1 * (t*t)",["x2","x1","v1","t1","a1"]], #constant acceleration
-["x2 = x1 + 0.5 * (v2 + v1) * (t*t)",["x2","x1","v1","t1","v2"]],
-["v2*v2 = (v1*v1) + 2 * a1 * (x2 * x1)",["v2","v1","a1","x2","x1"]],
-["v2 = v1 + a * (t2 - t1)",["v2","v1","a1","t2","t1"]]]
-
-eqsConstantV = [["v1 = (x2 - x1)/(t2-t1)",["x2","x1","v1","t2","t1"]],
-["x2 = x1 + v1 * (t2 - t1)",["x2","x1","v1","t2","t1"]]]
-
-eqsConstantJ = [["j = (a2 - a1) / (t2 - t1)",["j","a2","a1","t2","t1"]],
-["x2 = v1 * (t2 - t1) + 0.5 * a1 * (t2 - t1)**2 + 1/6 * j * (t2 - t1)**3 + x1",["x2","v1","t2","t1","a1","j","x1"]]]
+from equations import equations
 
 def main():
     variables, eqType = getVariables() # get known variables & type of problem
@@ -55,9 +45,9 @@ def getVariables():
 def findEquation(vars,eqType):
     #change so it allows for 1 missing var
     goodEqs = []
-    if eqType == 1: eqs = eqsConstantV
-    elif eqType == 2: eqs = eqsConstantV
-    elif eqType == 3: eqs = eqsConstantJ
+    if eqType == 1: eqs = equations.constantV
+    elif eqType == 2: eqs = equations.constantA
+    elif eqType == 3: eqs = equations.constantJ
     for equation in eqs:
         missing = 0
         goodEqs.append(equation)
