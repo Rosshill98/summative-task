@@ -1,3 +1,4 @@
+# from physics import main
 class equations:
     constantA = [["x2 = x0 + v1 * t1 + 0.5 * a1 * (t*t)",["x2","x1","v1","t1","a1"]], #constant acceleration
     ["x2 = x1 + 0.5 * (v2 + v1) * (t*t)",["x2","x1","v1","t1","v2"]],
