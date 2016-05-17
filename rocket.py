@@ -1,3 +1,4 @@
+from solve import solve
 class rocket:
     def getSpecs(self):
         baseMass = raw_input("Enter the base mass (without fuel) of the rocket (kg): ")
@@ -12,6 +13,11 @@ class rocket:
         g = specs['gravity']
         m = specs['baseMass']
         fm = specs['fuelMass'] * specs['fuelAmount']
+        v1 = 0
+        t1 = 0
         a1 = (thrust - g*(m+fm))/(m+fm)
         a2 = (thrust - g*m)/m
-        
+        # solve for t2 with solve.py
+        # solve for v2 with solve.py
+
+        # use v2 as v1 for rocket after fuel runs out
