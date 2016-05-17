@@ -30,4 +30,11 @@ class solve:
             if symbol not in vars.keys():
                 x = symbols(symbol)
                 break
-        return str(x), solveset(Eq(RHS,LHS),x)
+        symbol, answer = str(x), solveset(Eq(RHS,LHS),x)
+        answer = str(answer).replace('{','').replace('}','')
+        if(symbol == 't1'):
+            return symbol, answer.split(',')[0]
+        elif(symbol == 't2'):
+            return symbol, answer.split(',')[-1]
+        else:
+            return symbol, answer

@@ -17,7 +17,8 @@ class rocket:
         t1 = 0
         a1 = (thrust - g*(m+fm))/(m+fm)
         a2 = (thrust - g*m)/m
-        # solve for t2 with solve.py
-        # solve for v2 with solve.py
-
-        # use v2 as v1 for rocket after fuel runs out
+        x1 = 0
+    def drawGraph(self,specs,vectors):
+            # solve for t2 with solve.py
+            # solve for v2 with solve.py
+            # use v2 as v1 for rocket after fuel runs out

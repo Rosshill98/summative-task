@@ -3,12 +3,11 @@ from solve import solve
 from rocket import rocket
 class main:
     def start(self):
-        specs = rocket().getSpecs()
-        variables, eqType = rocket().deriveVectors(specs), 3
-        # variables, eqType = self.getVariables() # get known variables & type of problem
+        # specs = rocket().getSpecs()
+        # variables, eqType = rocket().deriveVectors(specs), 3
+        variables, eqType = self.getVariables() # get known variables & type of problem
         equation = solve().findEquation(variables.keys(),eqType) # find usable equation
         symbol, answer = solve().solveEq(equation[0],equation[1],variables) # Solve for the 1 unknown
-        answer = str(answer).replace('{','').replace('}','')
         print("\n{0} = {1}".format(symbol,answer))
 
     def getVariables(self):
