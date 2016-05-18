@@ -3,13 +3,11 @@ from solve import solve
 from rocket import rocket
 class main:
     def start(self):
-        # specs = rocket().getSpecs()
-        # variables, eqType = rocket().deriveVectors(specs), 3
-        variables, eqType = self.getVariables() # get known variables & type of problem
-        equation = solve().findEquation(variables.keys(),eqType) # find usable equation
-        symbol, answer = solve().solveEq(equation[0],equation[1],variables) # Solve for the 1 unknown
-        print("\n{0} = {1}".format(symbol,answer))
-
+        specs = rocket().getSpecs()
+        variables, eqType = rocket().deriveVectors(specs), 3
+        # variables, eqType = self.getVariables() # get known variables & type of problem
+        rocket().drawGraph(variables)
+        
     def getVariables(self):
         eqType = int(raw_input("Enter 1 for constant velocity, 2 for constant aceleration, or 3 for constant jerk: "))
         print("Please enter the know variables, leaving fields blank for unknown or unused variables.")
