@@ -18,18 +18,24 @@ class rocket:
         m = specs['baseMass']
         fm = specs['fuelMass'] * specs['fuelAmount']
         a1 = (thrust - g*(m+fm))/(m+fm)
-        a2 = (thrust - g*m)/m
-        values = {'v1':0,'t1':0,'a1':a1,'a2':a2,'x1':0}
+        values = {'v1':0,'t1':0,'a1':a1,'x1':0}
         return values
 
-    def drawGraph(self,vectors):
+    def drawGraph(self,vectors,specs):
+        thrust = specs['thrust']
+        g = specs['gravity']
+        m = specs['baseMass']
         answer = 0
         vectors['t2'] = 0
         equation = solve().findEquation(vectors.keys(),3) # find usable equation
         x = []
         y = []
+        increment = 0.1
         while float(answer) < 1000 and float(answer) > -1000:
-            vectors['t2'] += 0.1
+            vectors['t2'] += increment
+            specs['fuelAmount'] -= specs['ejectionRate'] * increment
+            fm = specs['fuelMass'] * specs['fuelAmount']
+            vectors['a2'] = (thrust - g*(m+fm))/(m+fm)
             x.append(vectors['t2'])
             symbol, answer = solve().solveEq(equation[0],equation[1],vectors) # Solve for the 1 unknown
             y.append(answer)

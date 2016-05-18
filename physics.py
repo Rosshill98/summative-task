@@ -6,8 +6,8 @@ class main:
         specs = rocket().getSpecs()
         variables, eqType = rocket().deriveVectors(specs), 3
         # variables, eqType = self.getVariables() # get known variables & type of problem
-        rocket().drawGraph(variables)
-        
+        rocket().drawGraph(variables,specs)
+
     def getVariables(self):
         eqType = int(raw_input("Enter 1 for constant velocity, 2 for constant aceleration, or 3 for constant jerk: "))
         print("Please enter the know variables, leaving fields blank for unknown or unused variables.")
