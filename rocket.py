@@ -1,4 +1,3 @@
-import matplotlib
 import matplotlib.pyplot as plt
 from solve import solve
 class rocket:
@@ -29,10 +28,11 @@ class rocket:
         equation = solve().findEquation(vectors.keys(),3) # find usable equation
         x = []
         y = []
-        while float(answer) < 1000:
-            vectors['t2'] += 0.01
+        while float(answer) < 1000 and float(answer) > -1000:
+            vectors['t2'] += 0.1
             x.append(vectors['t2'])
             symbol, answer = solve().solveEq(equation[0],equation[1],vectors) # Solve for the 1 unknown
             y.append(answer)
+            print(answer)
         plt.plot(x,y)
         plt.show()
