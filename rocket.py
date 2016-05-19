@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 class rocket:
     def getSpecs(self):
+        print("\nThis planet has the same mass and radius of earth, but no atmosphere.\n")
         baseMass = raw_input("Enter the base mass (without fuel) of the rocket (kg): ")
-        thrust = raw_input("Enter the thrust of the rocket (kj): ")
+        thrust = raw_input("Enter the thrust of the rocket (N): ")
         fuelAmount = raw_input("Enter the amount of rocket fuel (L): ")
         fuelMass = raw_input("Enter the mass of the fuel, per litre (kg): ")
         ejectionRate = raw_input("Enter the rate at which the fuel is ejected from the rocket (L/s): ")
@@ -25,7 +26,7 @@ class rocket:
         mass = 5.972*10**24 # the earth's mass
         r = 6.371*10**6 + d # the earth's radius
         G = 6.67408*10**-11 # the gravitational constant
-        return (G * mass)/(r*r) * -1
+        return (G * mass)/(r*r)
 
     def position(self,time,vectors):
         return vectors['v1'] * time + 0.5 * vectors['a1'] * time**2 + 1/6 * (vectors['a2'] - vectors['a2']) * time**2
@@ -40,9 +41,14 @@ class rocket:
         thrust = specs['thrust']
         m = specs['baseMass']
         increment = 1 # how many seconds pass every iteration
-        tList = posList = aList = vList = [] #outputted values
+        tList = []
+        posList = []
+        aList = []
+        vList = [] #outputted values
         #instantiating...
-        fuelLeft = totalMass = time = 0
+        fuelLeft = 0
+        totalMass = 0
+        time = 0
         while vectors['t2'] < 1000:
             vectors['t2'] += increment
             time = vectors['t2']
@@ -59,8 +65,10 @@ class rocket:
 
             vectors.pop('x2',None)
             vectors['x2'] = self.position(time,vectors)
+            if vectors['x2'] < 0:
+                print("Your craft has collided with the ground.")
+                break
             posList.append(vectors['x2'])
-
             vectors['v2'] = self.velocity(time,vectors['v2'],vectors['a2'],vectors['a1'])
             vList.append(vectors['v2'])
         self.display('Acceleration','M/S^2',aList,tList)
