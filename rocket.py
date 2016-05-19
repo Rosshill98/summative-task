@@ -21,34 +21,51 @@ class rocket:
         values = {'v1':0,'t1':0,'a1':a1,'x1':0}
         return values
 
+    def fuelRemaining(self,time,initialFuel,ejectionRate):
+        return max([initialFuel - (ejectionRate * time),0])
+
+    def position(self,time,vectors):
+        return vectors['v1'] * time + 0.5 * vectors['a1'] * time**2 + 1/6 * (vectors['a2'] - vectors['a2']) * time**2
+
+
+    def velocity(self,time,v,a2,a1):
+        return v + a2 * time + 1/2 * (a2-a1) * time # only works if t1 and v1 = 0
+
+    def acceleration(self,time,thrust,m,g):
+        return (thrust - g*m)/m
+
     def drawGraph(self,vectors,specs):
         thrust = specs['thrust']
         g = specs['gravity']
         m = specs['baseMass']
         vectors['t2'] = 0
-        increment = 0.1
-        yList = []
+        vectors['v2'] = 0
+        increment = 1
+        #outputted values
+        tList = []
         posList = []
         aList = []
         vList = []
+        #instantiating...
+        fuelLeft = totalMass = time = 0
         while vectors['t2'] < 1000:
             vectors['t2'] += increment
-            fuelRemaining = fuelRemaining(time,specs['fuelAmount'],specs['ejectionRate'])
-            totalMass = m + fuelRemaining * specs['fuelMass']
-            vectors['a2'] = acceleration(time,thrust,totalMass)
             time = vectors['t2']
-            vectors['x2'] = position(time)
-            vectors['v2'] = velocity(time)
-            vectors['m'] = mass(time)
-    def fuelRemaining(time):
-        return initialFuel - (ejectionRate * time)
+            tList.append(vectors['t2'])
 
-    def position(time):
+            fuelLeft = self.fuelRemaining(time,specs['fuelAmount'],specs['ejectionRate'])
+            if fuelLeft == 0: thrust = 0
+            totalMass = m + fuelLeft * specs['fuelMass']
 
-    def velocity(time):
-        pass
-    def acceleration(time):
-        
+            vectors['a2'] = self.acceleration(time,thrust,totalMass,9.8)
+            aList.append(vectors['a2'])
 
-    def mass(time):
-        pass
+            vectors.pop('x2',None)
+            vectors['x2'] = self.position(time,vectors)
+            posList.append(vectors['x2'])
+
+            vectors['v2'] = self.velocity(time,vectors['v2'],vectors['a2'],vectors['a1'])
+            vList.append(vectors['v2'])
+        # print(aList, tList)
+        plt.plot(tList,vList)
+        plt.show()
