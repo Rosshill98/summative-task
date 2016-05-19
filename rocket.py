@@ -6,26 +6,29 @@ class rocket:
         fuelAmount = raw_input("Enter the amount of rocket fuel (L): ")
         fuelMass = raw_input("Enter the mass of the fuel, per litre (kg): ")
         ejectionRate = raw_input("Enter the rate at which the fuel is ejected from the rocket (L/s): ")
-        gravity = raw_input("Enter acceleration due to gravity, a planet name, or leave blank for Earth: ")
-        specs = {'baseMass':baseMass,'thrust':thrust,'fuelAmount':fuelAmount,'fuelMass':fuelMass,'ejectionRate':ejectionRate,'gravity':gravity}
+        specs = {'baseMass':baseMass,'thrust':thrust,'fuelAmount':fuelAmount,'fuelMass':fuelMass,'ejectionRate':ejectionRate}
         for key in specs: specs[key] = float(specs[key])
         return specs
 
     def deriveVectors(self,specs):
         thrust = specs['thrust']
-        g = specs['gravity']
         m = specs['baseMass']
         fm = specs['fuelMass'] * specs['fuelAmount']
-        a1 = (thrust - g*(m+fm))/(m+fm)
+        a1 = (thrust - self.accDueToGravity(0)*(m+fm))/(m+fm)
         values = {'v1':0,'t1':0,'a1':a1,'x1':0}
         return values
 
     def fuelRemaining(self,time,initialFuel,ejectionRate):
         return max([initialFuel - (ejectionRate * time),0])
 
+    def accDueToGravity(self,d):
+        mass = 5.972*10**24
+        r = 6.371*10**6 + d
+        G = 6.67408*10**-11
+        return (G * mass)/(r*r) * -1
+
     def position(self,time,vectors):
         return vectors['v1'] * time + 0.5 * vectors['a1'] * time**2 + 1/6 * (vectors['a2'] - vectors['a2']) * time**2
-
 
     def velocity(self,time,v,a2,a1):
         return v + a2 * time + 1/2 * (a2-a1) * time # only works if t1 and v1 = 0
@@ -35,16 +38,11 @@ class rocket:
 
     def drawGraph(self,vectors,specs):
         thrust = specs['thrust']
-        g = specs['gravity']
         m = specs['baseMass']
-        vectors['t2'] = 0
-        vectors['v2'] = 0
-        increment = 1
+        vectors['t2'] = vectors['v2'] = vectors['x2'] = 0
+        increment = 1 # how many seconds pass every iteration
         #outputted values
-        tList = []
-        posList = []
-        aList = []
-        vList = []
+        tList = posList = aList = vList = []
         #instantiating...
         fuelLeft = totalMass = time = 0
         while vectors['t2'] < 1000:
@@ -56,7 +54,9 @@ class rocket:
             if fuelLeft == 0: thrust = 0
             totalMass = m + fuelLeft * specs['fuelMass']
 
-            vectors['a2'] = self.acceleration(time,thrust,totalMass,9.8)
+            gravAcc = self.accDueToGravity(vectors['x2'])
+            print(gravAcc)
+            vectors['a2'] = self.acceleration(time,thrust,totalMass,gravAcc)
             aList.append(vectors['a2'])
 
             vectors.pop('x2',None)
@@ -65,6 +65,19 @@ class rocket:
 
             vectors['v2'] = self.velocity(time,vectors['v2'],vectors['a2'],vectors['a1'])
             vList.append(vectors['v2'])
-        # print(aList, tList)
-        plt.plot(tList,vList)
+        self.display('Acceleration','M/S^2',aList,tList)
+        self.display('Displacement','M',posList,tList)
+        self.display('Velocity','M/S',vList,tList)
+
+    def display(self,s,unit,variable,time):
+        fig = plt.figure()
+        plt.plot(time,variable)
+        fig.suptitle('{0} vs. Time'.format(s), fontsize=18)
+        plt.xlabel('Time (s)', fontsize=14)
+        plt.ylabel("{0} ({1})".format(s,unit), fontsize=14)
+        ax = plt.gca()
+        ax.minorticks_on()
+        fig.set_tight_layout(False)
+        plt.grid(b=True, which='major', color='0.7', linestyle='-')
+        plt.grid(b=True, which='minor', color='0.9', linestyle='-')
         plt.show()
