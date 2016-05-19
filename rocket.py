@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from solve import solve
 class rocket:
     def getSpecs(self):
         baseMass = raw_input("Enter the base mass (without fuel) of the rocket (kg): ")
