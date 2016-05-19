@@ -15,16 +15,16 @@ class rocket:
         m = specs['baseMass']
         fm = specs['fuelMass'] * specs['fuelAmount']
         a1 = (thrust - self.accDueToGravity(0)*(m+fm))/(m+fm)
-        values = {'v1':0,'t1':0,'a1':a1,'x1':0}
+        values = {'v1':0,'t1':0,'a1':a1,'x1':0,'t2':0,'v2':0,'x2':0}
         return values
 
     def fuelRemaining(self,time,initialFuel,ejectionRate):
         return max([initialFuel - (ejectionRate * time),0])
 
     def accDueToGravity(self,d):
-        mass = 5.972*10**24
-        r = 6.371*10**6 + d
-        G = 6.67408*10**-11
+        mass = 5.972*10**24 # the earth's mass
+        r = 6.371*10**6 + d # the earth's radius
+        G = 6.67408*10**-11 # the gravitational constant
         return (G * mass)/(r*r) * -1
 
     def position(self,time,vectors):
@@ -39,10 +39,8 @@ class rocket:
     def drawGraph(self,vectors,specs):
         thrust = specs['thrust']
         m = specs['baseMass']
-        vectors['t2'] = vectors['v2'] = vectors['x2'] = 0
         increment = 1 # how many seconds pass every iteration
-        #outputted values
-        tList = posList = aList = vList = []
+        tList = posList = aList = vList = [] #outputted values
         #instantiating...
         fuelLeft = totalMass = time = 0
         while vectors['t2'] < 1000:

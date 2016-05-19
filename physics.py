@@ -2,7 +2,7 @@ from rocket import rocket
 class main:
     def start(self):
         specs = rocket().getSpecs()
-        variables, eqType = rocket().deriveVectors(specs), 3
+        variables = rocket().deriveVectors(specs)
         rocket().drawGraph(variables,specs)
 
 main().start()
