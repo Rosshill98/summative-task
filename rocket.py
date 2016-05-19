@@ -25,20 +25,30 @@ class rocket:
         thrust = specs['thrust']
         g = specs['gravity']
         m = specs['baseMass']
-        answer = 0
         vectors['t2'] = 0
-        equation = solve().findEquation(vectors.keys(),3) # find usable equation
-        x = []
-        y = []
         increment = 0.1
-        while float(answer) < 1000 and float(answer) > -1000:
+        yList = []
+        posList = []
+        aList = []
+        vList = []
+        while vectors['t2'] < 1000:
             vectors['t2'] += increment
-            specs['fuelAmount'] -= specs['ejectionRate'] * increment
-            fm = specs['fuelMass'] * specs['fuelAmount']
-            vectors['a2'] = (thrust - g*(m+fm))/(m+fm)
-            x.append(vectors['t2'])
-            symbol, answer = solve().solveEq(equation[0],equation[1],vectors) # Solve for the 1 unknown
-            y.append(answer)
-            print(answer)
-        plt.plot(x,y)
-        plt.show()
+            fuelRemaining = fuelRemaining(time,specs['fuelAmount'],specs['ejectionRate'])
+            totalMass = m + fuelRemaining * specs['fuelMass']
+            vectors['a2'] = acceleration(time,thrust,totalMass)
+            time = vectors['t2']
+            vectors['x2'] = position(time)
+            vectors['v2'] = velocity(time)
+            vectors['m'] = mass(time)
+    def fuelRemaining(time):
+        return initialFuel - (ejectionRate * time)
+
+    def position(time):
+
+    def velocity(time):
+        pass
+    def acceleration(time):
+        
+
+    def mass(time):
+        pass
