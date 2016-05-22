@@ -1,12 +1,14 @@
 import matplotlib.pyplot as plt # module used for graphing
+from termcolor import colored # coloured standard output
 class rocket:
     def getSpecs(self):
-        print("\nThis planet has the same mass and radius of earth, but no atmosphere.\n")
+        print colored("\nThis planet has the same mass and radius of earth, but no atmosphere.\n",'green')
         baseMass = raw_input("Enter the base mass (without fuel) of the rocket (kg): ")
         thrust = raw_input("Enter the thrust of the rocket (N): ")
         fuelAmount = raw_input("Enter the amount of rocket fuel (L): ")
         fuelMass = raw_input("Enter the mass of the fuel, per litre (kg): ")
         ejectionRate = raw_input("Enter the rate at which the fuel is ejected from the rocket (L/s): ")
+        print("") # line break
         specs = {'baseMass':baseMass,'thrust':thrust,'fuelAmount':fuelAmount,'fuelMass':fuelMass,'ejectionRate':ejectionRate}
         for key in specs: specs[key] = float(specs[key])
         return specs
@@ -24,12 +26,12 @@ class rocket:
 
     def accDueToGravity(self,d):
         mass = 5.972*10**24 # the earth's mass
-        r = 6.371*10**6 + d # the earth's radius
+        r = 6.371*10**6 + d # the earth's radius + displacement
         G = 6.67408*10**-11 # the gravitational constant
         return (G * mass)/(r*r)
 
     def position(self,time,vectors):
-        return vectors['v1'] * time + 0.5 * vectors['a1'] * time**2 + 1/6 * (vectors['a2'] - vectors['a2']) * time**2
+        return vectors['v1'] * time + 0.5 * vectors['a1'] * time**2 + 1/6 * (vectors['a2'] - vectors['a1']) * time**2 # time = 0
 
     def velocity(self,time,v,a2,a1):
         return v + a2 * time + 1/2 * (a2-a1) * time # only works if t1 and v1 = 0
@@ -38,6 +40,7 @@ class rocket:
         return (thrust - g*m)/m
 
     def drawGraph(self,vectors,specs):
+        crashed = False
         thrust = specs['thrust']
         m = specs['baseMass']
         increment = 1 # how many seconds pass every iteration
@@ -59,22 +62,23 @@ class rocket:
             totalMass = m + fuelLeft * specs['fuelMass']
 
             gravAcc = self.accDueToGravity(vectors['x2'])
-            print(gravAcc)
             vectors['a2'] = self.acceleration(time,thrust,totalMass,gravAcc)
             aList.append(vectors['a2'])
 
             vectors.pop('x2',None)
             vectors['x2'] = self.position(time,vectors)
             if vectors['x2'] < 0:
-                print("Your craft has collided with the ground.")
+                print colored("Your craft has collided with the ground.\n", 'red')
+                crashed = True
                 break
             posList.append(vectors['x2'])
             vectors['v2'] = self.velocity(time,vectors['v2'],vectors['a2'],vectors['a1'])
             vList.append(vectors['v2'])
-        self.display('Acceleration','M/S^2',aList,tList)
-        self.display('Displacement','M',posList,tList)
-        self.display('Velocity','M/S',vList,tList)
-
+        if crashed == False:
+            self.display('Acceleration','M/S^2',aList,tList)
+            self.display('Displacement','M',posList,tList)
+            self.display('Velocity','M/S',vList,tList)
+            plt.show()
     def display(self,s,unit,variable,time):
         fig = plt.figure()
         plt.plot(time,variable)
@@ -86,4 +90,4 @@ class rocket:
         fig.set_tight_layout(False)
         plt.grid(b=True, which='major', color='0.7', linestyle='-')
         plt.grid(b=True, which='minor', color='0.9', linestyle='-')
-        plt.show()
+        plt.draw()
