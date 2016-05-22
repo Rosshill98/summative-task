@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # module used for graphing
 class rocket:
     def getSpecs(self):
         print("\nThis planet has the same mass and radius of earth, but no atmosphere.\n")
