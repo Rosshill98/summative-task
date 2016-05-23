@@ -1,3 +1,5 @@
+import sys
+sys.setrecursionlimit(5000)
 from rocket import rocket
 class main:
     def start(self):
