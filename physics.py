@@ -5,4 +5,4 @@ class main:
         variables = rocket().deriveVectors(specs)
         rocket().drawGraph(variables,specs)
 
-main().start()
+main().start() #initializes the program
