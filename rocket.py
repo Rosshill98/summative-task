@@ -87,7 +87,6 @@ class rocket:
         plt.ylabel("{0} (${1}$)".format(s,unit), fontsize=14)
         ax = plt.gca()
         ax.minorticks_on()
-        fig.set_tight_layout(False)
         plt.grid(b=True, which='major', color='0.7', linestyle='-')
         plt.grid(b=True, which='minor', color='0.9', linestyle='-')
         plt.draw()
