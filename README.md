@@ -11,6 +11,8 @@ My summative task will be a combination of physics and software curriculums. The
 
 # Installing
 ## Mac
+* Make sure Python is install by running python -v.
+* If it's not, download it here: https://www.python.org/downloads/release/python-2711/
 * In terminal run this command:
 * `pip install rosshill-physics`
 
