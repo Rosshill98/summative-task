@@ -8,3 +8,8 @@ My summative task will be a combination of physics and software curriculums. The
 
 * Accurately calculates the velocity, acceleration, and position vectors of a rocket, as it takes off
 * Displays that data graphically, over time.
+
+# Installing
+## Mac
+* In terminal run this command:
+* 'pip install rosshill-physics'
