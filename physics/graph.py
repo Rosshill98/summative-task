@@ -1,3 +1,4 @@
+from termcolor import colored # coloured standard output
 from rocket import rocket
 import matplotlib.pyplot as plt # module used for graphing
 class graph:
