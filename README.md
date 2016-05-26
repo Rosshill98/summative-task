@@ -13,3 +13,7 @@ My summative task will be a combination of physics and software curriculums. The
 ## Mac
 * In terminal run this command:
 * `pip install rosshill-physics`
+
+# Usage
+## Mac
+* In terminal, enter: `physics`
