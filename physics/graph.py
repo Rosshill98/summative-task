@@ -2,7 +2,7 @@ from termcolor import colored # coloured standard output
 from rocket import rocket
 import matplotlib.pyplot as plt # module used for graphing
 class graph:
-    # uses the above helper functions to make lists of x2, a2, v2 and values, which will be eventually displayed on graphs with time.
+    # uses the rocket helper functions to make lists of x2, a2, v2 and values, which will be eventually displayed on graphs with time.
     def drawGraph(self,vectors,specs):
         crashed = False
         thrust = specs['thrust']
