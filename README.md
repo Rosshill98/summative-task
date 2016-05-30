@@ -51,8 +51,8 @@ It is now a self-contained program, which can be easily installed using Python's
 
 ####  How have you made correct use of source control?
 For example, show that you have:
-    * made frequent commits
-    * kept commits "atomic" (i.e.: one accomplishment per commit, rather than a batch of things all committed at once)
-    * descriptive commit message
+* made frequent commits
+* kept commits "atomic" (i.e.: one accomplishment per commit, rather than a batch of things all committed at once)
+* descriptive commit message
 
 [Here](b49969a536a1e328e351db1975b52147788c31e2) is an example of a commit which achieved a single task, with a descriptive commit message. Looking through my commits, you can see that I have been committing consistantly over the course of this project, and my commit messages are accurate and descriptive.
