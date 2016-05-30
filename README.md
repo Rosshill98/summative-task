@@ -21,17 +21,17 @@ My summative task will be a combination of physics and software curriculums. The
 * In terminal, enter: `physics`
 
 # Reflection
-## What (if anything – although there is probably at least something) does the user need to know about what your program does?
-## What (if anything) does the user need to know to operate your program (keystrokes, et cetera)?
-## How does your program show evidence of your understanding of object-oriented programming concepts like encapsulation and inheritance?
-## What evidence can you provide that your program is human-readable?
+* What (if anything – although there is probably at least something) does the user need to know about what your program does?
+* What (if anything) does the user need to know to operate your program (keystrokes, et cetera)?
+* How does your program show evidence of your understanding of object-oriented programming concepts like encapsulation and inheritance?
+* What evidence can you provide that your program is human-readable?
 
-### For example, where have you used: descriptive function names, meaningful variable names, comments that describe the intention of a block of code
+* For example, where have you used: descriptive function names, meaningful variable names, comments that describe the intention of a block of code
 
-### What is the most important algorithm, or algorithm(s), in your program? That is, where is the "core idea" of your program? Explain how this works.
+* What is the most important algorithm, or algorithm(s), in your program? That is, where is the "core idea" of your program? Explain how this works.
 
-### How have you made your program easy to use?
-### How have you made correct use of source control?
+* How have you made your program easy to use?
+* How have you made correct use of source control?
 
     For example, show that you have:
         made frequent commits
